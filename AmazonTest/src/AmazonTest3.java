@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 
@@ -43,6 +44,37 @@ public class AmazonTest3 {
     public static void main(String[] args) {
         langford(7);
     }
+
+    /**
+     * 另外一种解法
+     * @param n
+     * @return
+     */
+        public ArrayList<int[]> getLangford(int n){
+            ArrayList<int[]> returnVal = new ArrayList<int[]>();
+            int[] record = new int[2 * n];
+            lanfordHelper(returnVal, record, n);
+            return returnVal;
+        }
+        private void lanfordHelper(ArrayList<int[]> returnVal, int[] record, int downNum){
+            // Edge case
+            if(downNum < 0)        return;
+            // Base
+            if(downNum == 0){
+                returnVal.add(Arrays.copyOf(record, record.length));
+                return;
+            }
+            //Normal
+            for(int i = 0; i <= record.length - downNum - 2; i++){
+                if(record[i] == 0 && record[i + downNum + 1] == 0){
+                    record[i] = downNum;
+                    record[i + downNum + 1] = downNum;
+                    lanfordHelper(returnVal, record, downNum - 1);
+                    record[i] = 0;
+                    record[i + downNum + 1] = 0;
+                }
+            }
+        }
 
 
 }
