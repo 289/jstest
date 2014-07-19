@@ -15,14 +15,29 @@ public class SortTest {
 		list.add("b");
 		list.add("b");
 		sortList(list);
-		System.out.println(list.toArray());
+		List<Integer> list1=new ArrayList<Integer>();
+		list1.add(1);
+		list1.add(2);
+		list1.add(3);
+		list1.add(4);
+		list1.add(4);
+		list1.add(5);
+		list1.add(5);
+		sortList(list1);
+		for(String s:list){
+			System.out.println(s);
+		}
+		for(Integer i:list1){
+			System.out.println(i);
+		}
 	}
 
 	public static void sortList(List<?> l){
 		int j=0;
-		while(j==l.size()-1){
+		int size=l.size()-1;
+		while(j<size){
 			for(int i=j+1;i<l.size();i++){
-				if((Object)l.get(i)==l.get(j)){
+				if(l.get(i)==l.get(j)){
 					l.remove(i);
 				}
 			}
