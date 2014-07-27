@@ -1,0 +1,47 @@
+使用mysql中的with rollup可以得到每个分组的汇总级别的数据：
+
+表如下：
+
+CREATE TABLE `test3` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name1` varchar(10) DEFAULT NULL,
+  `name2` varchar(10) DEFAULT NULL,
+  `cnt` int(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1
+
+数据为：
+1 rank1 subrank1 1
+2 rank1 subrank1 2
+3 rank2 subrank1 1
+4 rank2 subrank2 2
+5 rank3 subrank1 1
+6 rank1 subrank2 3
+
+查询（1）：
+select name1,name2,sum(cnt) from test3 group by name1,name2
+
+得到结果：
+rank1 subrank1 3
+rank1 subrank2 3
+rank2 subrank1 1
+rank2 subrank2 2
+rank3 subrank1 1
+
+查询（2）：
+
+select name1,name2,sum(cnt) from test3 group by name1,name2 with rollup
+
+得到结果：
+
+rank1 subrank1 3
+rank1 subrank2 3
+rank1 NULL     6
+rank2 subrank1 1
+rank2 subrank2 2
+rank2 NULL     3
+rank3 subrank1 1
+rank3 NULL     1
+NULL  NULL     10
+
+可以看到多出了汇总信息
