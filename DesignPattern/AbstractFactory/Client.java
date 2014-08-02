@@ -16,7 +16,7 @@ package AbstractFactory;
  * 抽象工厂模式通常是用于创一族产品，并且这族产品分不同的等级；
  * 不同的具体工厂类生产不同等级的一族产品。
  */
-public class AbstractFactoryTest {
+public class Client {
 	public static void main(String[] args){
 		AnimalFactory animalFactory1=new LittleAnimalBuilder();
 		AnimalFactory animalFactory2=new BigAnimalBuilder();

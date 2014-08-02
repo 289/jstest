@@ -15,7 +15,7 @@
  * 	翻译是：定义一个创建对象的接口，但是让子类来觉得该实例化那个类。
  * 	工厂方法让一个类推迟实例化至它的子类中。
  */
-public class FactoryTest {
+public class Client {
 	public static void main(String[] args){
 		HouseFactory houseFactory1=new WhiteHouseBuilder();
 		HouseFactory houseFactory2=new BlackHouseBuilder();
