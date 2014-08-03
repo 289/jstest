@@ -1,0 +1,28 @@
+What Is a Decorator Pattern?
+One of the most commonly used structural patterns used in GUI
+(graphical user interface) design is the Decorator pattern.
+The Decorator pattern gives us a way to use inheritance
+as a conditional add-on. What does this mean?
+It means that inheritance is used in the pattern
+in such a way as to make each inherited class be a sum of all the parts.
+ 
+The Decorator pattern has four main parts: the Component,
+Concrete Component, Decorator, and Concrete Decorator.
+The component is usually an abstract class
+that holds the base functionality for both the
+non-decorated classes as well as the decorated ones.
+By non-decorated I mean without applying a decorator class
+to the existing component. The next aspect of the pattern
+is the concrete component. This is the non-decorated implementation
+class of the component, which we can instance without a decorator. The next part of the pattern gives us the name of the pattern. It consists of two parts: the decorator and the concrete decorator. The decorator is the abstract class that inherits from the component and holds an encapsulated instance of our desired concrete component. The concrete component is the implementation class with the added functionality desired for our decorator.
+ 
+After reading the description above you may still be wondering how the pattern is useful. One use is to provide flexible inheritance. We can cast our decorator to be of the base type of component, which can give us all the same basic functionality we might have in a non-decorated control, but allows us to add desired functionality in an ad-hoc fashion. By making a control a decorator we add all the control’s functions and a few desired new ones, or, if we wish not to have the new functionality, we can simply use the non-decorated control. This interchangeability gives us greater flexibility when dealing with inherited classes.
+ 
+Decorators give us a more flexible way to deal with class inheritance. They allow us to extend and interchange class types and functionality by allowing us to add new functionality to an existing class in a more easily recognizable and maintainable way. It gives us more explicit control of a class’s functionality, without adding to the complexity of the code when using levels of inherited classes.
+ UML for Decorator Pattern
+ 
+Remember As much as possible: make your code closed for modification, but open for extension. In other words, design your core code so that it doesn’t have to be modified a lot, but may be extended as needed.
+ 
+Remember The formal definition of the Decorator pattern from the GoF book (Design Patterns: Elements of Reusable Object-Oriented Software, 1995, Pearson Education, Inc. Publishing as Pearson Addison Wesley) says you can, “Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.”
+
+Technical Stuff This design pattern is called Decorator but that seems to imply optional frills. A better name for this pattern might be the “Augmentor” or “Extender” pattern because that’s what it allows you to do: augment or extend a class dynamically at runtime. However, as you see in this chapter, the term Decorator does apply once you understand the concept of “closed for modification, open for extension.” When you use wrapper code to extend your core functionality and you don’t need to modify that core functionality, you are essentially decorating the code.
