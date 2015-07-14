@@ -9,9 +9,9 @@ import java.util.*;
 public class Sorts {
     public static final int[] WAIT_SORT = new int[]{34,78,3,5,12,3,7,8,345,998,34,5,2,5,23,7878};
 
-    public static int[] getWaitSortArray(){
+    public static int[] getWaitSortArray(int length){
         Random random = new Random();
-        int length = 50000;
+//        int length = 5000;
         int[] array = new int[length];
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(length);
@@ -20,7 +20,7 @@ public class Sorts {
     }
 
     public static void main(String[] args) {
-        int[] waitSortArray1 = getWaitSortArray();
+        int[] waitSortArray1 = getWaitSortArray(5000);
         int[] waitSortArray2 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
         int[] waitSortArray3 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
         int[] waitSortArray4 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
@@ -34,18 +34,21 @@ public class Sorts {
         int[] waitSortArray12 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
         System.out.println("0  " + Arrays.toString(waitSortArray1));
         System.out.println("==================================================");
-//        System.out.println("1  " + Arrays.toString(insertSort(waitSortArray1)));
-//        System.out.println("2  " + Arrays.toString(shellInsertSort(waitSortArray2)));
-//        System.out.println("3  " + Arrays.toString(selectSort(waitSortArray3)));
-//        System.out.println("4  " + Arrays.toString(selectSort2(waitSortArray4)));
-//        System.out.println("5  " + Arrays.toString(heapSort(waitSortArray5)));
-//        System.out.println("6  " + Arrays.toString(bubbleSort(waitSortArray6)));
-//        System.out.println("7  " + Arrays.toString(bubbleSort2(waitSortArray7)));
-//        System.out.println("8  " + Arrays.toString(bubbleSort3(waitSortArray8)));
-//        System.out.println("9  " + Arrays.toString(quickSort(waitSortArray9)));
-//        System.out.println("10 " + Arrays.toString(quickSort2(waitSortArray10)));
-//        System.out.println("11 " + Arrays.toString(mergeSort(waitSortArray11)));
-//        System.out.println("12 " + Arrays.toString(radixSort(waitSortArray12)));
+        System.out.println("1  " + Arrays.toString(insertSort(waitSortArray1)));
+        System.out.println("2  " + Arrays.toString(shellInsertSort(waitSortArray2)));
+        System.out.println("3  " + Arrays.toString(selectSort(waitSortArray3)));
+        System.out.println("4  " + Arrays.toString(selectSort2(waitSortArray4)));
+        System.out.println("5  " + Arrays.toString(heapSort(waitSortArray5)));
+        System.out.println("6  " + Arrays.toString(bubbleSort(waitSortArray6)));
+        System.out.println("7  " + Arrays.toString(bubbleSort2(waitSortArray7)));
+        System.out.println("8  " + Arrays.toString(bubbleSort3(waitSortArray8)));
+        System.out.println("9  " + Arrays.toString(quickSort(waitSortArray9)));
+        System.out.println("10 " + Arrays.toString(quickSort2(waitSortArray10)));
+        System.out.println("11 " + Arrays.toString(mergeSort(waitSortArray11)));
+        System.out.println("12 " + Arrays.toString(radixSort(waitSortArray12)));
+
+        System.out.println("==================================================");
+
 
 
         long start = System.currentTimeMillis();
@@ -213,7 +216,7 @@ public class Sorts {
                 } else if(endIndex >= array.length){
                     endIndex = array.length - 1;
                 }
-                array = merge(array, startIndex, midIndex, endIndex);
+                merge(array, startIndex, midIndex, endIndex);
                 i = endIndex + 1;
             }
             childLength *= 2;
@@ -229,9 +232,10 @@ public class Sorts {
      * @param endIndex
      * @return
      */
-    private static int[] merge(int[] array, int startIndex, int midIndex, int endIndex) {
-        int[] mergeArray = Arrays.copyOf(array, array.length);
-        int k = startIndex;
+    private static void merge(int[] array, int startIndex, int midIndex, int endIndex) {
+        int[] mergeArray = new int[endIndex - startIndex + 1];
+        int start = startIndex;
+        int k = 0;
         int startIndex2 = midIndex + 1;
         while (startIndex <= midIndex && startIndex2 <= endIndex){
             if(array[startIndex] < array[startIndex2]){
@@ -253,7 +257,7 @@ public class Sorts {
             startIndex2++;
             k++;
         }
-        return mergeArray;
+        System.arraycopy(mergeArray, 0, array, start, mergeArray.length);
     }
 
     /**
@@ -450,7 +454,7 @@ public class Sorts {
         buildHeap(array);
         for (int i = array.length - 1; i > 0; i--) {
             swap(array, i, 0);
-            heapAdjust(array, 0, i);
+            adjustToMaxHeap(array, 0, i);
         }
         return array;
     }
@@ -463,17 +467,17 @@ public class Sorts {
      */
     private static void buildHeap(int[] array) {
         for (int i = array.length / 2; i >= 0 ; i--) {
-            heapAdjust(array, i, array.length);
+            adjustToMaxHeap(array, i, array.length);
         }
     }
 
     /**
-     * 只有头部不满足完全二叉树的条件，调整堆以满足完全二叉树的条件
+     * 只有头部不满足最大堆，调整堆以满足最大堆
      * @param array
      * @param headIndex
      * @param adjustLegth
      */
-    private static void heapAdjust(int[] array, int headIndex, int adjustLegth){
+    public static void adjustToMaxHeap(int[] array, int headIndex, int adjustLegth){
         int childIndex = 2 * headIndex + 1;
         if (childIndex >= adjustLegth){
             return;
@@ -496,7 +500,37 @@ public class Sorts {
         }
     }
 
+
     /**
+     * 只有头部不满足最小堆，调整堆以满足最小堆
+     * @param array
+     * @param headIndex
+     * @param adjustLegth
+     */
+    public static void adjustToMinHeap(int[] array, int headIndex, int adjustLegth){
+        int childIndex = 2 * headIndex + 1;
+        if (childIndex >= adjustLegth){
+            return;
+        }
+        if(childIndex + 1 < adjustLegth
+                && array[childIndex + 1] < array[childIndex]){
+            childIndex = childIndex + 1;
+        }
+        while (array[headIndex] > array[childIndex]){
+            swap(array, headIndex, childIndex);
+            headIndex = childIndex;
+            childIndex = 2 * headIndex + 1;
+            if (childIndex >= adjustLegth){
+                return;
+            }
+            if(childIndex + 1 < adjustLegth
+                    && array[childIndex + 1] < array[childIndex]){
+                childIndex = childIndex + 1;
+            }
+        }
+    }
+
+    /**-
      * 选择排序—简单选择排序（Simple Selection Sort）
      * 变种，每次选一个最大值，一个最小值
      * @param array
