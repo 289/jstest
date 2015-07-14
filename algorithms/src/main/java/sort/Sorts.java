@@ -1,6 +1,9 @@
 package sort;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author: Jin Shuai
@@ -11,7 +14,6 @@ public class Sorts {
 
     public static int[] getWaitSortArray(int length){
         Random random = new Random();
-//        int length = 5000;
         int[] array = new int[length];
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(length);
@@ -20,130 +22,133 @@ public class Sorts {
     }
 
     public static void main(String[] args) {
-        int[] waitSortArray1 = getWaitSortArray(5000);
-        int[] waitSortArray2 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray3 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray4 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray5 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray6 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray7 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray8 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray9 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray10 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray11 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        int[] waitSortArray12 = Arrays.copyOf(waitSortArray1, waitSortArray1.length);
-        System.out.println("0  " + Arrays.toString(waitSortArray1));
+        int[] waitSortArray0 = getWaitSortArray(50000);
+        int[] waitSortArray1 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray2 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray3 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray4 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray5 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray6 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray7 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray8 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray9 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray10 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray11 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        int[] waitSortArray12 = Arrays.copyOf(waitSortArray0, waitSortArray0.length);
+        System.out.println("0  " + Arrays.toString(waitSortArray0));
         System.out.println("==================================================");
-        System.out.println("1  " + Arrays.toString(insertSort(waitSortArray1)));
-        System.out.println("2  " + Arrays.toString(shellInsertSort(waitSortArray2)));
-        System.out.println("3  " + Arrays.toString(selectSort(waitSortArray3)));
-        System.out.println("4  " + Arrays.toString(selectSort2(waitSortArray4)));
-        System.out.println("5  " + Arrays.toString(heapSort(waitSortArray5)));
-        System.out.println("6  " + Arrays.toString(bubbleSort(waitSortArray6)));
-        System.out.println("7  " + Arrays.toString(bubbleSort2(waitSortArray7)));
-        System.out.println("8  " + Arrays.toString(bubbleSort3(waitSortArray8)));
-        System.out.println("9  " + Arrays.toString(quickSort(waitSortArray9)));
-        System.out.println("10 " + Arrays.toString(quickSort2(waitSortArray10)));
-        System.out.println("11 " + Arrays.toString(mergeSort(waitSortArray11)));
-        System.out.println("12 " + Arrays.toString(radixSort(waitSortArray12)));
+//        System.out.println("1  " + Arrays.toString(insertSort(waitSortArray1)));
+//        System.out.println("2  " + Arrays.toString(shellInsertSort(waitSortArray2)));
+//        System.out.println("3  " + Arrays.toString(selectSort(waitSortArray3)));
+//        System.out.println("4  " + Arrays.toString(selectSort2(waitSortArray4)));
+//        System.out.println("5  " + Arrays.toString(heapSort(waitSortArray5)));
+//        System.out.println("6  " + Arrays.toString(bubbleSort(waitSortArray6)));
+//        System.out.println("7  " + Arrays.toString(bubbleSort2(waitSortArray7)));
+//        System.out.println("8  " + Arrays.toString(bubbleSort3(waitSortArray8)));
+//        System.out.println("9  " + Arrays.toString(quickSort(waitSortArray9)));
+//        System.out.println("10 " + Arrays.toString(quickSort2(waitSortArray10)));
+//        System.out.println("11 " + Arrays.toString(mergeSort(waitSortArray11)));
+//        System.out.println("12 " + Arrays.toString(radixSort(waitSortArray12)));
 
         System.out.println("==================================================");
 
+        loopTest(waitSortArray0,1);
+    }
 
+    public static void loopTest(int[] waitSortArray0, int loopCount){
 
         long start = System.currentTimeMillis();
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            insertSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            insertSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("insertSort                      ");
         System.out.println(System.currentTimeMillis()-start);
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            shellInsertSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            shellInsertSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("shellInsertSort                 ");
         System.out.println(System.currentTimeMillis()-start);
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            selectSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            selectSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("selectSort                      ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            selectSort2(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            selectSort2(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("selectSort2                     ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            heapSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            heapSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("heapSort                        ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            bubbleSort(Arrays.copyOf(waitSortArray1,waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            bubbleSort(Arrays.copyOf(waitSortArray0,waitSortArray0.length));
         }
         System.out.print("bubbleSort                      ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            bubbleSort2(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            bubbleSort2(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("bubbleSort2                     ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            bubbleSort3(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            bubbleSort3(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("bubbleSort3                     ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            quickSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            quickSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("quickSort                       ");
         System.out.println(System.currentTimeMillis()-start);
 
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            quickSort2(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            quickSort2(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("quickSort2                      ");
         System.out.println(System.currentTimeMillis()-start);
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            mergeSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            mergeSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("mergeSort                       ");
         System.out.println(System.currentTimeMillis()-start);
 
         start = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
-            radixSort(Arrays.copyOf(waitSortArray1, waitSortArray1.length));
+        for (int i = 0; i < loopCount; i++) {
+            radixSort(Arrays.copyOf(waitSortArray0, waitSortArray0.length));
         }
         System.out.print("radixSort                       ");
         System.out.println(System.currentTimeMillis()-start);
-
     }
 
 
@@ -207,6 +212,11 @@ public class Sorts {
     public static int[] mergeSort(int[] array){
         int childLength = 1;
         while (childLength <= array.length){
+            int loop = array.length / (childLength * 2);
+            if(array.length % (childLength * 2)  > childLength){
+                loop++;
+            }
+            final CountDownLatch latch = new CountDownLatch(loop);
             for (int i = 0; i < array.length; ) {
                 int startIndex = i;
                 int midIndex = i + childLength - 1;
