@@ -6,9 +6,6 @@ import org.apache.mina.core.buffer.IoBuffer;
  * @author Jin Shuai
  */
 public class XORTest {
-    private static int[] key1 = new int[]{ 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 };
-    private static int[] key2 = new int[]{ 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 };
-
     // 解密整段数据
     private static byte[] decrypt(byte[] data, int[] decryptKey) throws Exception {
         if (data.length == 0)
@@ -58,12 +55,28 @@ public class XORTest {
         return cipherBuffer.array();
     }
 
+//    private static int[] key1 = new int[]{ 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 };
+    private static int[] key1 = new int[]{ 0xae, 0xbf, 0x52, 0x72, 0xae, 0xcd, 0xef, 0xf1 };
+    private static int[] key2 = new int[]{ 0xae, 0xbf, 0x52, 0x72, 0xae, 0xcd, 0xef, 0xf1 };
+//    private static int[] key2 = new int[]{ 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 };
+    private static int[] key3 = new int[]{ 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 };
+
 
     public static void main(String[] args) throws Exception {
         byte[] ss = "Hello World!".getBytes();
+        byte[] ss3 = "World Hello!".getBytes();
 //        System.out.println(encypt(ss, key));
         byte[] ss2 = encypt(ss, key1);
         System.out.println(new String(decrypt(ss2,key2)));
+//        System.out.println(new String(decrypt(ss3,key3)));
+
+
+        byte[] ss22 = encypt(ss, key1);
+        System.out.println(new String(decrypt(ss22,key2)));
+
+        byte[] ss33 = encypt(ss, key1);
+        System.out.println(new String(decrypt(ss33,key2)));
+        System.out.println(123);
     }
 
 
